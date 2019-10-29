@@ -20,6 +20,7 @@ msghelpstrs.append("[e] : retorna a constante e; sintaxe: e\n")
 msghelpstrs.append("\n..................................................................\n\n")
 msghelpstrs.append("[q] : para sair\n")
 
+result = 0.0
 
 # dicionário de operações
 ops = {
@@ -52,11 +53,11 @@ def is_number(s):
 # in: string
 # out: boolean
 def isvalid(s):
-    if ('.' in s) or ('/' in s) or ('*' in s) or ('+' in s) or ('-' in s):
-        if is_number(s):
-            return True
-        else:
-            return False
+    if ('.' in s) or ('/' in s) or ('x' in s) or ('+' in s) or ('-' in s):
+        #if is_number(s):
+        return True
+        #else:
+         #   return False
     else:
         return False
     
@@ -78,7 +79,11 @@ def executa_operacao(*optodo):
   nargumentos = len(optodo)
   if nargumentos == 1:
       if(optodo[0].startswith("+") or optodo[0].startswith("-")):
-        return tonum(optodo[0])
+        return ops["+"] (tonum(result), tonum(optodo[0]))
+      elif optodo[0].startswith("/"):
+        return ops["/"] (tonum(result), tonum(optodo[0].replace("/","")))
+      elif optodo[0].startswith("x"):
+        return ops["x"] (tonum(result), tonum(optodo[0].replace("x","")))
       else:
         return ops[optodo[0]] 
   elif nargumentos == 2:
@@ -92,9 +97,10 @@ def main():
         exit(0)
 
     while True:
+        global result
+        showresult = False
         userinput = []
         nargumentos  = 0
-        result = 0.0
         userinput = input(">>> ").split()
         nargumentos = len(userinput)
 
@@ -111,9 +117,11 @@ def main():
                 
                 print (*msghelpstrs)
             elif userinput[0] in("pi", "e"):
-                print(executa_operacao(userinput[0]))
+                result = executa_operacao(userinput[0])
+                showresult = True
             elif isvalid(userinput[0]):
-                print(executa_operacao(userinput[0]))
+                result = executa_operacao(userinput[0])
+                showresult = True
             else : print (msgsintaxinval)
         elif nargumentos == 2:
             if userinput[0] in("sqrt", "sin", "cos", "tan", "ln", "!",  
@@ -121,18 +129,23 @@ def main():
                     if (userinput[0] == "sqrt" and tonum(userinput[1]) < 0) or (userinput[0] == "log" and tonum(userinput[1]) == 0) or (userinput[1] == "ln" and tonum(userinput[1] < 0)):
                         print("Operação inválida!")
                     elif (userinput[0] == "log" and tonum(userinput[1]) < 0) or (userinput[0] == "ln" and tonum(userinput[1]) == 0):
-                        print("-∞")
+                        result = "-∞"
+                        showresult = True
                     else:
-                        print(executa_operacao(userinput[0],  userinput[1])) 
+                        result = executa_operacao(userinput[0],  userinput[1])
+                        showresult = True
             else : print (msgsintaxinval)
         elif nargumentos == 3:
             if userinput[1] in("+", "-" , "x", "/") and is_number(userinput[0]) and is_number(userinput[2]):
                 if userinput[1] == "/" and tonum(userinput[2]) == 0:
                     print("Divisor não pode ser zero!")
                 else:
-                    print(executa_operacao(userinput[0],  userinput[1], userinput[2]))
+                    result = executa_operacao(userinput[0],  userinput[1], userinput[2])
+                    showresult = True
             else : print (msgsintaxinval)
         else : print (msgsintaxinval)
+        if(showresult):
+            print("= {}".format(result))
 
 
 if __name__== "__main__":
