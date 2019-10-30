@@ -2,11 +2,12 @@ import sys
 import math
 
 msgsintaxinval = "Sintaxe Inválida!"
+msginvhelpkey = "Entrada não encontrada no Help!"
 msghelpstrs = []
 msghelpstrs.append("\nAs operações permitidas são:\n\n")
 msghelpstrs.append("[+] : para somar dois números; sintaxe: <numero 1> + <numero 2>\n")
 msghelpstrs.append("[-] : para subtrair dois números; sintaxe: <numero 1> + <numero 2>\n")
-msghelpstrs.append("[*] : para multiplicar dois números; sintaxe: <numero 1> + <numero 2>\n")
+msghelpstrs.append("[x] : para multiplicar dois números; sintaxe: <numero 1> + <numero 2>\n")
 msghelpstrs.append("[/] : para dividir dois números; sintaxe: <numero 1> + <numero 2>\n")
 msghelpstrs.append("[sqrt] : para calcular a raiz quadrada de um número; sintaxe: sqrt <numero>\n")
 msghelpstrs.append("[sin] : para calcular o seno de um angulo em graus; sintaxe: sin <angulo>\n")
@@ -20,9 +21,24 @@ msghelpstrs.append("[e] : retorna a constante e; sintaxe: e\n")
 msghelpstrs.append("\n..................................................................\n\n")
 msghelpstrs.append("[q] : para sair\n")
 
+# dicionario de help
+helps = dict({"? +": msghelpstrs[1], 
+              "? -": msghelpstrs[2],
+              "? x": msghelpstrs[3],
+              "? /": msghelpstrs[4],
+              "? sqrt": msghelpstrs[5], 
+              "? sin": msghelpstrs[6],
+              "? cos": msghelpstrs[7],  
+              "? tan": msghelpstrs[8],  
+              "? ln": msghelpstrs[9],  
+              "? log": msghelpstrs[10],
+              "? !": msghelpstrs[11],   
+              "? pi": msghelpstrs[12],  
+              "? e": msghelpstrs[13]}) 
+
 result = 0.0
 
-# dicionário de operações
+# dicionario de operações
 ops = {
       "sqrt": (lambda x: math.sqrt(x)),
       "sin": (lambda x: math.sin(x)),
@@ -91,6 +107,7 @@ def executa_operacao(*optodo):
   else:
       return ops[optodo[1]] (tonum(optodo[0]), tonum(optodo[2]))
 
+
 def main():
     if( len(sys.argv)-1 > 0):
         print("sintaxe inválida!")
@@ -106,15 +123,15 @@ def main():
 
         if nargumentos < 1:
             print ("Número de argumentos inválidos.")
-            print ("? ou help para mais ajuda")
+            print ("? para mais ajuda")
         elif userinput[0] in("q", "Q"):
             break
+        elif userinput[0] in("C", "c"):
+            result = 0
+            showresult = True
         elif nargumentos == 1:
-            if userinput[0] in("?", "help", "HELP"):
+            if userinput[0] == "?":
                 print ("\nBem vindo à ajuda da CALCULADORA PYTHON")
-                
-                ### IMPLEMENTAR !!!! HELP PARA APENAS 1 operacao!!!!!
-                
                 print (*msghelpstrs)
             elif userinput[0] in("pi", "e"):
                 result = executa_operacao(userinput[0])
@@ -122,12 +139,21 @@ def main():
             elif isvalid(userinput[0]):
                 result = executa_operacao(userinput[0])
                 showresult = True
+            elif is_number(userinput[0]):
+                result = tonum(userinput[0])
+                showresult = True
             else : print (msgsintaxinval)
         elif nargumentos == 2:
-            if userinput[0] in("sqrt", "sin", "cos", "tan", "ln", "!",  
+            if userinput[0].startswith("?"):
+                keyhelp = userinput[0] + " " + userinput[1]
+                if keyhelp in helps:
+                    print(helps[keyhelp])
+                else: 
+                    print (msginvhelpkey)
+            elif userinput[0] in("sqrt", "sin", "cos", "tan", "ln", "!",  
                                 "log", "x2", "x3", "xy") and is_number(userinput[1]):
-                    if (userinput[0] == "sqrt" and tonum(userinput[1]) < 0) or (userinput[0] == "log" and tonum(userinput[1]) == 0) or (userinput[1] == "ln" and tonum(userinput[1] < 0)):
-                        print("Operação inválida!")
+                    if (userinput[0] == "sqrt" and tonum(userinput[1]) < 0) or (userinput[0] == "log" and tonum(userinput[1]) == 0) or (userinput[0] == "ln" and tonum(userinput[1]) < 0):
+                        print("Operação inválida / não definida!")
                     elif (userinput[0] == "log" and tonum(userinput[1]) < 0) or (userinput[0] == "ln" and tonum(userinput[1]) == 0):
                         result = "-∞"
                         showresult = True
