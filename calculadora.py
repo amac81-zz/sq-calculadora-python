@@ -1,8 +1,16 @@
+
+#Projecto:  Calculadora
+#Implementa uma calculadora basica.
+#Criado por : Arnaldo Canelas
+#Data       : 30/10/2019
+#Contacto   : arnaldocanelas[at]gmail.com
+
 # Importar biblioteca 'sys' e 'math'
 import sys
 import math
 
-msgsintaxinval = "Sintaxe Inválida!"
+#msgs de interacao com o utilizador
+msgsintaxinval = "Sintaxe Inválida. ? para mais ajuda"
 msginvhelpkey = "Entrada não encontrada no Help!"
 
 # dicionario de help
@@ -21,12 +29,13 @@ helps = dict({"? +": "[+] : para somar dois números; sintaxe: <numero 1> + <num
               "? e": "[e] : retorna a constante e; sintaxe: e",
               "? q": "[q] : para sair"})
 
+# declaracao de variaveis
+result = 0.0
 
+# lista todos os valores do dicionario helps
 def print_all_help_msgs():
     for keys, values in helps.items():
         print(values)
-
-result = 0.0
 
 # dicionario de operações
 ops = {
@@ -137,7 +146,7 @@ def main():
             if userinput[0].startswith("?"):
                 keyhelp = userinput[0] + " " + userinput[1]
                 if keyhelp in helps:
-                    print(helps[keyhelp])
+                    print (helps[keyhelp])
                 else: 
                     print (msginvhelpkey)
             elif userinput[0] in("sqrt", "sin", "cos", "tan", "ln", "!",  
