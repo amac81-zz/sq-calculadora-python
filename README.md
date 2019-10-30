@@ -4,17 +4,12 @@ Calculadora em python realizada como trabalho para a Unidade Curricular de Quali
 
 Como usar?
 -----------
-Using command line below:
-- Windows com o python 3.x**:
-```bash
-python calculadora.py
-```
-- *nix / Linux:
-```bash
-python3 App.py
-```
 
-correr usando IDE para Python.
+Através de linha de comando:
+
+python3*** calculadora.py
+
+ou correr usando IDE para Python.
 
 Licença
 --------
@@ -22,4 +17,4 @@ Gratuito e de código aberto, pode usá-lo e modificá-lo.
 
 Contacto
 -------
-Pode contactar-me pelo [amac81](https://amac81.github.io/)
+Pode contactar-me pelo [amac81](https://github.com/amac81)
