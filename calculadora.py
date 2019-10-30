@@ -1,40 +1,30 @@
+# Importar biblioteca 'sys' e 'math'
 import sys
 import math
 
 msgsintaxinval = "Sintaxe Inválida!"
 msginvhelpkey = "Entrada não encontrada no Help!"
-msghelpstrs = []
-msghelpstrs.append("\nAs operações permitidas são:\n\n")
-msghelpstrs.append("[+] : para somar dois números; sintaxe: <numero 1> + <numero 2>\n")
-msghelpstrs.append("[-] : para subtrair dois números; sintaxe: <numero 1> + <numero 2>\n")
-msghelpstrs.append("[x] : para multiplicar dois números; sintaxe: <numero 1> + <numero 2>\n")
-msghelpstrs.append("[/] : para dividir dois números; sintaxe: <numero 1> + <numero 2>\n")
-msghelpstrs.append("[sqrt] : para calcular a raiz quadrada de um número; sintaxe: sqrt <numero>\n")
-msghelpstrs.append("[sin] : para calcular o seno de um angulo em graus; sintaxe: sin <angulo>\n")
-msghelpstrs.append("[cos] : para calcular o coseno de um angulo em graus; sintaxe: cos <angulo>\n")
-msghelpstrs.append("[tan] : para calcular a tangente de um angulo em graus; sintaxe: tan <angulo>\n")
-msghelpstrs.append("[ln] : para calcular o logaritmo natural, de base e, de um número; sintaxe: ln <numero>\n")
-msghelpstrs.append("[log] : para calcular o logaritmo de base 10 de um número; sintaxe: log <numero>\n")
-msghelpstrs.append("[!] : para calcular o fatorial de um número; sintaxe: ! <numero>\n")
-msghelpstrs.append("[pi] : retorna a constante pi; sintaxe: pi\n")
-msghelpstrs.append("[e] : retorna a constante e; sintaxe: e\n")
-msghelpstrs.append("\n..................................................................\n\n")
-msghelpstrs.append("[q] : para sair\n")
 
 # dicionario de help
-helps = dict({"? +": msghelpstrs[1], 
-              "? -": msghelpstrs[2],
-              "? x": msghelpstrs[3],
-              "? /": msghelpstrs[4],
-              "? sqrt": msghelpstrs[5], 
-              "? sin": msghelpstrs[6],
-              "? cos": msghelpstrs[7],  
-              "? tan": msghelpstrs[8],  
-              "? ln": msghelpstrs[9],  
-              "? log": msghelpstrs[10],
-              "? !": msghelpstrs[11],   
-              "? pi": msghelpstrs[12],  
-              "? e": msghelpstrs[13]}) 
+helps = dict({"? +": "[+] : para somar dois números; sintaxe: <numero 1> + <numero 2>", 
+              "? -": "[-] : para subtrair dois números; sintaxe: <numero 1> + <numero 2>",
+              "? x": "[x] : para multiplicar dois números; sintaxe: <numero 1> + <numero 2>",
+              "? /": "[/] : para dividir dois números; sintaxe: <numero 1> + <numero 2>",
+              "? sqrt": "[sqrt] : para calcular a raiz quadrada de um número; sintaxe: sqrt <numero>", 
+              "? sin": "[sin] : para calcular o seno de um angulo em graus; sintaxe: sin <angulo>",
+              "? cos": "[cos] : para calcular o coseno de um angulo em graus; sintaxe: cos <angulo>",  
+              "? tan": "[tan] : para calcular a tangente de um angulo em graus; sintaxe: tan <angulo>",  
+              "? ln": "[ln] : para calcular o logaritmo natural, de base e, de um número; sintaxe: ln <numero>",  
+              "? log": "[log] : para calcular o logaritmo de base 10 de um número; sintaxe: log <numero>",
+              "? !": "[!] : para calcular o fatorial de um número; sintaxe: ! <numero>",   
+              "? pi": "[pi] : retorna a constante pi; sintaxe: pi",  
+              "? e": "[e] : retorna a constante e; sintaxe: e",
+              "? q": "[q] : para sair"})
+
+
+def print_all_help_msgs():
+    for keys, values in helps.items():
+        print(values)
 
 result = 0.0
 
@@ -70,10 +60,10 @@ def is_number(s):
 # out: boolean
 def isvalid(s):
     if ('.' in s) or ('/' in s) or ('x' in s) or ('+' in s) or ('-' in s):
-        #if is_number(s):
-        return True
-        #else:
-         #   return False
+        if is_number(s):
+            return True
+        else:
+            return False
     else:
         return False
     
@@ -101,13 +91,13 @@ def executa_operacao(*optodo):
       elif optodo[0].startswith("x"):
         return ops["x"] (tonum(result), tonum(optodo[0].replace("x","")))
       else:
-        return ops[optodo[0]] 
+        return optodo[0]
   elif nargumentos == 2:
       return ops[optodo[0]] (tonum(optodo[1]))
   else:
       return ops[optodo[1]] (tonum(optodo[0]), tonum(optodo[2]))
 
-
+# funcao main
 def main():
     if( len(sys.argv)-1 > 0):
         print("sintaxe inválida!")
@@ -131,8 +121,8 @@ def main():
             showresult = True
         elif nargumentos == 1:
             if userinput[0] == "?":
-                print ("\nBem vindo à ajuda da CALCULADORA PYTHON")
-                print (*msghelpstrs)
+                print ("\nBem vindo à ajuda da CALCULADORA PYTHON\n")
+                print_all_help_msgs()
             elif userinput[0] in("pi", "e"):
                 result = executa_operacao(userinput[0])
                 showresult = True
