@@ -1,6 +1,7 @@
 # Calculadora em Python
 
 Calculadora em python realizada como trabalho para a Unidade Curricular de Qualidade de Software - Mestrado IPPortalegre 2019
+Otimizado para a versão 3.7.x de Python.
 
 Como usar?
 -----------
