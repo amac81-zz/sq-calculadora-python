@@ -1,4 +1,5 @@
 
+
 #Projecto:  Calculadora
 #Implementa uma calculadora basica.
 #Criado por : Arnaldo Canelas
@@ -151,11 +152,8 @@ def main():
                     print (msginvhelpkey)
             elif userinput[0] in("sqrt", "sin", "cos", "tan", "ln", "!",  
                                 "log", "x2", "x3", "xy") and is_number(userinput[1]):
-                    if (userinput[0] == "sqrt" and tonum(userinput[1]) < 0) or (userinput[0] == "log" and tonum(userinput[1]) == 0) or (userinput[0] == "ln" and tonum(userinput[1]) < 0):
+                    if (userinput[0] == "sqrt" and tonum(userinput[1]) < 0) or (userinput[0] == "log" and tonum(userinput[1]) < 0) or (userinput[0] == "ln" and tonum(userinput[1]) <= 0):
                         print("Operação inválida / não definida!")
-                    elif (userinput[0] == "log" and tonum(userinput[1]) < 0) or (userinput[0] == "ln" and tonum(userinput[1]) == 0):
-                        result = "-∞"
-                        showresult = True
                     else:
                         result = executa_operacao(userinput[0],  userinput[1])
                         showresult = True
