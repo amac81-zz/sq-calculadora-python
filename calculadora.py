@@ -117,15 +117,15 @@ def main():
         showresult = False
         userinput = []
         nargumentos  = 0
-        userinput = input(">>> ").split()
+        userinput = input(">>> ").lower().split()
         nargumentos = len(userinput)
 
         if nargumentos < 1:
             print ("Número de argumentos inválidos.")
             print ("? para mais ajuda")
-        elif userinput[0] in("q", "Q"):
+        elif userinput[0] == "q":
             break
-        elif userinput[0] in("C", "c"):
+        elif userinput[0] == "c":
             result = 0
             showresult = True
         elif nargumentos == 1:
